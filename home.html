@@ -1,0 +1,457 @@
+<!doctype html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sistema CRM</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!--CSS-->
+    <link rel="stylesheet" href="./css/style.css">
+    <!--BOOTSTRAP ICONS-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <!--FUNÇÕES JS-->
+    <script src="./js/functions.js"></script>
+    <!--CDN JQUERY-->
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+    <script src="https://momentjs.com/downloads/moment-with-locales.min.js"></script>
+</head>
+
+<body>
+    <nav class=" navbar navbar-expand-lg bg-dark" id="navbar" data-bs-theme="dark">
+        <div class="container-fluid">
+            <img src="./imagens/crm.png" width="50" height="50" alt="logo">
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Contatos
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Leads - Pessoa Física</a></li>
+                            <li><a class="dropdown-item" href="#">Leads - Pessoa Jurídica</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Relatórios
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Histórico de contatos</a></li>
+                            <li><a class="dropdown-item" href="#">Relatório de vendas</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Configurações
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Área do Usuário</a></li>
+                            <li><a class="dropdown-item" href="#">LGPD</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-danger" aria-disabled="true">Logoff</a>
+                    </li>
+                </ul>
+            </div>
+            <a class="navbar-brand" href="#">Sistema CRM</a>
+        </div>
+    </nav>
+
+    <div class="container-fluid m-4">
+        <div class="row">
+            <div class="col-auto">
+                <button type="button" class="btn btn-primary m-1" data-bs-toggle="modal" onclick="novoCadastro()"
+                    data-bs-target="#exampleModal">
+                    + Adicionar Cadastro</button>
+            </div>
+
+            <div class="col-auto">
+                <button type="button" class="btn btn-primary m-1" data-bs-toggle="modal"
+                    data-bs-target="#modalApresentacao">
+                    Apresentação</button>
+            </div>
+        </div>
+        <div class="row p-1" id="insere_card">
+            <!--INÍCIO CARD CLIENTE-->
+
+            <!--FIM CARD CLIENTE-->
+
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Cadastro</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon1">Nome</span>
+                            <input type="text" class="form-control" required id="nome" placeholder="Nome"
+                                aria-label="nome" aria-describedby="basic-addon1">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="basic-addon1">Telefone</span>
+                                <input type="text" class="form-control" required id="telefone" placeholder="Telefone"
+                                    aria-label="Telefone" aria-describedby="basic-addon1">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="basic-addon1">Email</span>
+                                <input type="text" class="form-control" required id="email" placeholder="Email"
+                                    aria-label="Email" aria-describedby="basic-addon1">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <input class="form-control" type="date" required id="primeiro_contato">
+                    </div>
+
+                    <div class="row">
+                        <div class="input-group mb-3">
+
+
+                            <select class="selectpicker form-control border-0  rounded shadow" required
+                                id="select_procedimentos">
+
+                            </select>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Sair</button>
+                    <button type="button" class="btn btn-success" onclick="adciona()"
+                        data-bs-dismiss="modal">Salvar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal Apresentação -->
+    <div class="modal fade" id="modalApresentacao" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Apresentação Sistema CRM</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <video src="./imagens/video_crm.mp4" width="450" height="400" controls="true"></video>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Sair</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <style>
+        .card_deal {
+            box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+            border-radius: 5px;
+        }
+    </style>
+
+    <script>
+        var contador = 0;
+        function criarIDUnico() {
+            return contador++;
+        }
+        //FUNÇÃO PARA MUDAR O VALOR DO PROCEDIMENTO O ESCOLHER UM PROCEDIMENTO
+        $('#select_procedimentos').change(function (event) {
+            var valor = event.currentTarget.value;
+            $("#valor").html("R$ " + valor);
+            console.log(valor);
+        });
+
+
+
+        function altera_data(selectElement) {
+            const selectValue = selectElement.value;
+            const data_final = $(selectElement).closest(".data_final");
+
+            data_final.dblclick(function () {
+                data_final.replaceWith("<div class='div_data'><input type='date' class='form-control data_modificada'><button type='button' class='btn_salva btn btn-success' title='Alterar Data' onclick='salva_data(this)'><i class='bi bi-check-square'></i></button></div>");
+            });
+        }
+
+        function salva_data(selectElement) {
+            const selectValue = selectElement.value;
+            const ultimo_contato = $(selectElement).closest(".ultimo_contato");
+            const data_modificada = $(selectElement).closest(".div_data");
+            const btn_salva = $(selectElement).closest(".btn_salva");
+
+            btn_salva.dblclick(function () {
+                data = new Date($(".data_modificada").val());
+                dataFormatada = data.toLocaleDateString('pt-BR', { timeZone: 'UTC' });
+                data_modificada.replaceWith(`<input type="text" class="form-control data_final" readonly value='${dataFormatada}' onclick="altera_data(this)">`);
+            });
+        }
+
+        function novoCadastro() {
+            $('#nome').val('');
+            $('#telefone').val('');
+            $('#email').val('');
+            $('#primeiro_contato').val('');
+            $('#select_procedimentos').val('Escolha um procedimento');
+        }
+
+
+        function excluir_card(obj) {
+            $(obj).closest(`.novo_card`).remove();
+        }
+
+
+        //PRORROGARÁ POR MAIS 3 DIAS O PRÓXIMO CONTATO, COM BASE NA DATA DE CASTRO DO CLIENTE
+        function contato_tres_dias(button) {
+            const card = $(button).closest(".novo_card");
+            const dataPrimeiroContato = card.find(".primeiro_contato").val();
+            moment.locale('pt-br');
+            const dataFormatada = moment(dataPrimeiroContato, "DD/MM/YYYY");
+            const dias = parseInt($(button).data("dias"));
+            var minhaData = dataFormatada.clone().add(dias, 'days').format('DD/MM/YYYY');
+            console.log(minhaData);
+            card.find(".proximo_contato").html(minhaData);
+        }
+
+        //PRORROGARÁ POR MAIS 5 DIAS O PRÓXIMO CONTATO, COM BASE NO ÚLTIMO CONTATO COM O CLIENTE
+        function contato_cinco_dias(button) {
+            const card = $(button).closest(".novo_card");
+            const data_final = card.find(".data_final").val();
+            moment.locale('pt-br');
+            const dataFormatada = moment(data_final, "DD/MM/YYYY");
+            const dias = parseInt($(button).data("dias"));
+            var minhaData = dataFormatada.clone().add(dias, 'days').format('DD/MM/YYYY');
+            console.log(minhaData);
+            card.find(".proximo_contato").html(minhaData);
+        }
+
+
+
+        // CRIA LINHA        
+        function criaLinha(counter) {
+            const nome = $("#nome").val();
+            const telefone = $("#telefone").val();
+            const email = $("#email").val();
+            data = new Date($("#primeiro_contato").val());
+            const dataFormatada = data.toLocaleDateString('pt-BR', { timeZone: 'UTC' });
+            const procedimento = $("#select_procedimentos").val();
+
+            let linha = document.createElement("div");
+            linha.classList.add("novo_card");
+            linha.classList.add("col-auto");
+            linha.classList.add("m-1");
+            item = document.createElement("a");
+
+
+            item.innerHTML = `<div class="card card_deal card_dados_${counter}" id="dados_card"   style="width: 18rem;">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-10">
+                                    <h5 class="card-title" id="nome_cliente">Cliente: ${nome}</h5>
+                                </div>
+                                <div class="col-2"><button type="button"
+                                        style="background-color: transparent; border-color: transparent;"><i
+                                            class="bi bi-trash" onclick="excluir_card(this)" title="Excluir registro"
+                                            style="cursor: pointer;"></i></button></div>
+                            </div>
+                            <p class="card-text">Tel.: ${telefone}</p>
+                            <p class="card-text">Email: ${email}</p>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="basic-addon1">Primeiro Contato</span>
+                                <input type="text" readonly class="form-control primeiro_contato" value='${dataFormatada}'>
+                                </div>
+                            <div class='row btn_dias'>
+                                
+                            </div>
+                            <div class='prox_contato'></div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="basic-addon1">Último Contato</span>
+                                <input type="text" class="form-control data_final" readonly value='Dois Click's Aqui' onclick="altera_data(this)">
+                                </div>
+                            <p class="card-text">Serviço: ${procedimento}</p>
+                            <div class='row'>
+                                <p class='card-text'>Contratou o Serviço?</p>
+                                <div class="col-auto">
+                                    <div class="form-check form-check-inline ">
+                                        <input class="form-check-input slide-toggle rdSim" name="radio_select_${counter}"
+                                            onclick="insere_select(this,${counter})" value="Sim" type="radio" id="radio_${criarIDUnico()}" checked>
+                                        <label class="form-check-label" for="radioSim">
+                                            Sim
+                                        </label>
+
+                                    </div>
+                                    <div class="form-check form-check-inline ">
+                                        <input class="form-check-input slide-toggle rdNao" name="radio_select_${counter}"
+                                            onclick="insere_select(this,${counter})" value="Não" type="radio" id="radio_${criarIDUnico()}">
+                                        <label class="form-check-label" for="radioNao">
+                                            Não
+                                        </label>
+
+                                    </div>
+                                </div>
+                            <div class="input-group mb-3 insert_select" id='insert_select'>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    `
+
+
+            linha.appendChild(item);
+
+            return linha;
+        }
+
+        //FUNÇÃO PARA INSERIR OS ITENS A LISTA
+        function adciona() {
+            let linhas = document.getElementById("insere_card");
+            let linha = criaLinha(contador);
+
+            if ($("#nome").val() === "" && $("#telefone").val() === "" && $("#email").val() === "") {
+                alert("Preencha os campos");
+            } else {
+                linhas.appendChild(linha);
+                contador++;
+            }
+
+        }
+
+        async function dados_procedimentos() {
+            fetch("./js/procedimentos.json")
+                .then(function (resp) {
+                    return resp.json();
+                })
+                .then(function (data) {
+                    nome_procedimento = '';
+                    escolha = `<option selected>Escolha um procedimento</option>`;
+                    for (i = 0; i < data.length; i++) {
+
+                        nomes = `<option value="${data[i].procedimento}">${data[i].procedimento}</option>`;
+
+                        nome_procedimento += nomes;
+                        console.log(data[i].procedimento);
+                        console.log("R$ " + data[i].valor);
+
+                        let container = document.querySelector('#select_procedimentos');
+                        container.innerHTML = escolha + nome_procedimento;
+                    }
+
+                });
+        }
+        dados_procedimentos();
+
+
+        function cria_arquivo_json() {
+            const nome = $("#nome").val();
+            const telefone = $("#telefone").val();
+            const email = $("#email").val();
+            const data_primeiro_contato = $("#primeiro_contato").val();
+            const procedimento = $("#select_procedimentos").val();
+            // Declarando um objeto com estrutura JSON
+            var objeto = {
+                'nome': nome,
+                'telefone': telefone,
+                'email': email,
+                'primeiro_contato': data_primeiro_contato,
+                'procedimento': procedimento
+            };
+
+            var dict = JSON.stringify(objeto);
+            console.log(dict);
+        }
+        cria_arquivo_json();
+
+        function insere_select(x, cont) {
+            const name = $(x).attr('name');
+            if ($(`input[name='${name}']:checked`).val() === "Sim") {
+                $(x).closest(".novo_card").find(".insert_select").html(`<select class="selectpicker  border-0  rounded shadow status_${cont}" onclick="muda_cor(this)">\
+                                    <option value="Selecione um status" selected>Status da operação</option>\
+                                    <option value="Em Aberto">Em Aberto</option>\
+                                    <option value="Em Andamento">Em Andamento</option>\
+                                    <option value="Encerrada">Encerrada</option>\
+                                    <option value="Concluído">Concluído</option>\
+                                </select>`);
+                $(x).closest(".novo_card").find(".btn_dias").find(".col_tres_dias").remove();
+                $(x).closest(".novo_card").find(".btn_dias").find(".col_cinco_dias").remove();
+
+            } else {
+                $(x).closest(".novo_card").find(".insert_select").html(`<select class="selectpicker  border-0  rounded shadow statu_${cont}" onclick="muda_cor(this)">\
+                                    <option value="Selecione um status" selected>Status da operação</option>\
+                                    <option value="Em Aberto">Em Aberto</option>\
+                                    <option value="Encerrada">Encerrada</option>\
+                                </select>`);
+                $(x).closest(".novo_card").find(".prox_contato").html("<p class='text'>Próximo Contato: <span class='proximo_contato'></span> </p>");
+                $(x).closest(".novo_card").find(".btn_dias").html(`<div class='col-auto col_tres_dias'><button type='button' class='tres_dias btn btn-primary' onclick='contato_tres_dias(this)' data-dias="3">+ 3 dias</button></div>
+                                <div class='col-auto col_cinco_dias'><button type='button' class='cinco_dias btn btn-primary' onclick='contato_cinco_dias(this)' data-dias="5">+ 5 dias</button></div>`);
+
+
+            }
+        }
+
+        function muda_cor(selectElement) {
+            const selectedValue = selectElement.value;
+            const card = $(selectElement).closest(".card");
+
+            switch (selectedValue) {
+                case "Concluído":
+                    card.css('background', 'rgba(24,168,45)');
+                    card.css('background', 'linear-gradient(0deg, rgba(24,168,45,1) 53%, rgba(45,253,128,1) 100%)');
+                    card.css('color', 'white');
+                    break;
+                case "Em Aberto":
+                    card.css('background', 'rgb(223,208,27)');
+                    card.css('background', 'linear-gradient(0deg, rgba(223,208,27,1) 38%, rgba(227,236,8,1) 61%)');
+                    card.css('color', 'white');
+                    break;
+                case "Em Andamento":
+                    card.css('background', 'rgb(28,59,213)');
+                    card.css('background', 'linear-gradient(0deg, rgba(28,59,213,1) 37%, rgba(27,126,223,1) 75%)');
+                    card.css('color', 'white');
+                    break;
+                case "Encerrada":
+                    card.css('background', 'rgb(194,14,14)');
+                    card.css('background', 'linear-gradient(0deg, rgba(194,14,14,1) 36%, rgba(238,79,79,1) 75%)');
+                    card.css('color', 'white');
+                    break;
+                default:
+                    card.css('background-color', '');
+                    break;
+            }
+        }
+
+
+    </script>
+</body>
+
+</html>
