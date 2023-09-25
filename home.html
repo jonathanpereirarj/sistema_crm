@@ -129,7 +129,10 @@
                     </div>
 
                     <div class="row">
-                        <input class="form-control" type="date" required id="primeiro_contato">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon1">Data Cadastro</span>
+                            <input class="form-control" type="date" required id="primeiro_contato">
+                        </div>
                     </div>
 
                     <div class="row">
@@ -395,7 +398,7 @@
         function insere_select(x, cont) {
             const name = $(x).attr('name');
             if ($(`input[name='${name}']:checked`).val() === "Sim") {
-                $(x).closest(".novo_card").find(".insert_select").html(`<select class="selectpicker  border-0  rounded shadow status_${cont}" onclick="muda_cor(this)">\
+                $(x).closest(".novo_card").find(".insert_select").html(`<select class="selectpicker  border-0  rounded shadow status_${cont}" ">\
                                     <option value="Selecione um status" selected>Status da operação</option>\
                                     <option value="Em Aberto">Em Aberto</option>\
                                     <option value="Em Andamento">Em Andamento</option>\
