@@ -21,7 +21,7 @@
 <body>
     <nav class=" navbar navbar-expand-lg bg-dark" id="navbar" data-bs-theme="dark">
         <div class="container-fluid">
-            <img src="./imagens/crm.png" width="50" height="50" alt="logo">
+            
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -68,6 +68,7 @@
                     </li>
                 </ul>
             </div>
+            <img src="./imagens/crm.png" width="50" height="50" alt="logo">
             <a class="navbar-brand" href="#">Sistema CRM</a>
         </div>
     </nav>
@@ -106,8 +107,8 @@
                     <div class="row">
                         <div class="input-group mb-3">
                             <span class="input-group-text" id="basic-addon1">Nome</span>
-                            <input type="text" class="form-control" required id="nome" placeholder="Nome"
-                                aria-label="nome" aria-describedby="basic-addon1">
+                            <input type="text" style="text-transform: uppercase;" class="form-control" required
+                                id="nome" placeholder="Nome" aria-label="nome" aria-describedby="basic-addon1">
                         </div>
                     </div>
 
@@ -131,7 +132,8 @@
                     <div class="row">
                         <div class="input-group mb-3">
                             <span class="input-group-text" id="basic-addon1">Data Cadastro</span>
-                            <input class="form-control" type="date" required id="primeiro_contato">
+                            <input class="form-control" placeholder="Data de Cadastro" type="date" required
+                                id="primeiro_contato">
                         </div>
                     </div>
 
@@ -244,7 +246,8 @@
             const dias = parseInt($(button).data("dias"));
             var minhaData = dataFormatada.clone().add(dias, 'days').format('DD/MM/YYYY');
             console.log(minhaData);
-            card.find(".proximo_contato").html(minhaData);
+            //card.find(".proximo_contato").html(minhaData);
+            $(button).closest(".novo_card").find(".prox_contato").html(`<p class='text'>Próximo Contato: <span class='proximo_contato'>${minhaData}</span> </p>`);
         }
 
         //PRORROGARÁ POR MAIS 5 DIAS O PRÓXIMO CONTATO, COM BASE NO ÚLTIMO CONTATO COM O CLIENTE
@@ -256,7 +259,8 @@
             const dias = parseInt($(button).data("dias"));
             var minhaData = dataFormatada.clone().add(dias, 'days').format('DD/MM/YYYY');
             console.log(minhaData);
-            card.find(".proximo_contato").html(minhaData);
+            //card.find(".proximo_contato").html(minhaData);
+            $(button).closest(".novo_card").find(".prox_contato").html(`<p class='text'>Próximo Contato: <span class='proximo_contato'>${minhaData}</span> </p>`);
         }
 
 
@@ -273,31 +277,37 @@
             let linha = document.createElement("div");
             linha.classList.add("novo_card");
             linha.classList.add("col-auto");
-            linha.classList.add("m-1");
+            //linha.classList.add("m-1");
             item = document.createElement("a");
 
 
-            item.innerHTML = `<div class="card card_deal card_dados_${counter}" id="dados_card"   style="width: 18rem;">
+            item.innerHTML = `<div class="card card_deal card_dados_${counter}" id="dados_card"   style="width: 25rem;">
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-10">
-                                    <h5 class="card-title" id="nome_cliente">Cliente: ${nome}</h5>
+                                    <h5 class="card-title nome_cliente" id="nome_cliente">Cliente: ${nome}</h5>
                                 </div>
                                 <div class="col-2"><button type="button"
                                         style="background-color: transparent; border-color: transparent;"><i
                                             class="bi bi-trash" onclick="excluir_card(this)" title="Excluir registro"
                                             style="cursor: pointer;"></i></button></div>
                             </div>
-                            <p class="card-text">Tel.: ${telefone}</p>
-                            <p class="card-text">Email: ${email}</p>
-                            <div class="input-group mb-3">
-                                <span class="input-group-text" id="basic-addon1">Primeiro Contato</span>
-                                <input type="text" readonly class="form-control primeiro_contato" value='${dataFormatada}'>
+                            <div class='row'>
+                                <div class='col-auto'><span class="card-text">Tel.: ${telefone}</span></div>
+                                <div class='col-auto'><span class="card-text">Email: ${email}</span></div>    
+                            </div>
+                            <div class='row'>
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="basic-addon1">Primeiro Contato</span>
+                                    <input type="text" readonly class="form-control primeiro_contato" value='${dataFormatada}'>
                                 </div>
+                            </div>
+
                             <div class='row btn_dias'>
                                 
                             </div>
-                            <div class='prox_contato'></div>
+                            <br>
+                            <div class='prox_contato'> </div>
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="basic-addon1">Último Contato</span>
                                 <input type="text" class="form-control data_final" readonly value='Dois Click's Aqui' onclick="altera_data(this)">
@@ -322,10 +332,11 @@
                                         </label>
 
                                     </div>
-                                </div>
-                            <div class="input-group mb-3 insert_select" id='insert_select'>
-                                
                             </div>
+                            <div class='select_motivo'> </div>
+                            <div class='justificativa'> </div>
+                            
+                            <div class="insert_select" id='insert_select'> </div>
                         </div>
                     </div>
                     `
@@ -395,10 +406,12 @@
         }
         cria_arquivo_json();
 
+
+
         function insere_select(x, cont) {
             const name = $(x).attr('name');
             if ($(`input[name='${name}']:checked`).val() === "Sim") {
-                $(x).closest(".novo_card").find(".insert_select").html(`<select class="selectpicker  border-0  rounded shadow status_${cont}" ">\
+                $(x).closest(".novo_card").find(".insert_select").html(`<select class="selectpicker form-control border-0  rounded shadow status_${cont}" ">\
                                     <option value="Selecione um status" selected>Status da operação</option>\
                                     <option value="Em Aberto">Em Aberto</option>\
                                     <option value="Em Andamento">Em Andamento</option>\
@@ -407,18 +420,54 @@
                                 </select>`);
                 $(x).closest(".novo_card").find(".btn_dias").find(".col_tres_dias").remove();
                 $(x).closest(".novo_card").find(".btn_dias").find(".col_cinco_dias").remove();
+                $(x).closest(".novo_card").find(".motivo_select").remove();
 
             } else {
-                $(x).closest(".novo_card").find(".insert_select").html(`<select class="selectpicker  border-0  rounded shadow statu_${cont}" onclick="muda_cor(this)">\
+                $(x).closest(".novo_card").find(".insert_select").html(`<select class="selectpicker form-control border-0  rounded shadow statu_${cont}" onclick="muda_cor(this)">\
                                     <option value="Selecione um status" selected>Status da operação</option>\
                                     <option value="Em Aberto">Em Aberto</option>\
                                     <option value="Encerrada">Encerrada</option>\
                                 </select>`);
-                $(x).closest(".novo_card").find(".prox_contato").html("<p class='text'>Próximo Contato: <span class='proximo_contato'></span> </p>");
+                
                 $(x).closest(".novo_card").find(".btn_dias").html(`<div class='col-auto col_tres_dias'><button type='button' class='tres_dias btn btn-primary' onclick='contato_tres_dias(this)' data-dias="3">+ 3 dias</button></div>
                                 <div class='col-auto col_cinco_dias'><button type='button' class='cinco_dias btn btn-primary' onclick='contato_cinco_dias(this)' data-dias="5">+ 5 dias</button></div>`);
 
+                $(x).closest(".novo_card").find(".select_motivo").html(`<select class="selectpicker form-control border-0 motivo_select rounded shadow motivo_${cont}" onclick='motivo_resposta(this)'>\
+                                    <option value="Selecione um motivo" selected>Selecione um motivo</option>\
+                                    <option value="Valor">Valor</option>\
+                                    <option value="Localização">Localização</option>\
+                                    <option value="Distância">Distância</option>\
+                                    <option value="Forma de Pagamento">Forma de Pagamento</option>\
+                                </select>`);
 
+            }
+        }
+
+        function motivo_resposta(selectElement) {
+            const selectedValue = selectElement.value;
+            const justificativa = $(selectElement).closest(".justificativa");
+            const nome_cliente = $(selectElement).closest(".nome_cliente").val();
+
+            switch (selectedValue) {
+                case "Valor":
+                    $(selectElement).closest(".card").find(".justificativa").html(`<p class='card-text m-2'><b>Texto pós: </b>Prezado(a) Sr.(a) ${nome_cliente}, para que possamos agradar nossos clientes e adequar nosso serviço para os mesmos,\
+                        apresentamos uma melhor oportunidade para facilitar o pagamento</p>`);
+                    break;
+                case "Localização":
+                $(selectElement).closest(".card").find(".justificativa").html(`<p class='card-text m-2'><b>Texto pós: </b>Prezado(a) Sr.(a) ${nome_cliente}, em caso de dificuldades para\
+                    deslocar-se, informamos que nossas consultorias acontecem de forma on-line, através das plataformas Teams ou Zoom, mediante à agendamento prévio.</p>`);
+                    break;
+                case "Distância":
+                $(selectElement).closest(".card").find(".justificativa").html(`<p class='card-text m-2'><b>Texto pós: </b>Prezado(a) Sr.(a) ${nome_cliente}, em caso de dificuldades para\
+                    deslocar-se, informamos que nossas consultorias acontecem de forma on-line, através das plataformas Teams ou Zoom, mediante à agendamento prévio.</p>`);
+                    break;
+                    case "Forma de Pagamento":
+                $(selectElement).closest(".card").find(".justificativa").html(`<p class='card-text m-2'><b>Texto pós: </b>Prezado(a) Sr.(a) ${nome_cliente}, para facilitar a forma de pagamento de nossos clientes,\
+                    informamos que parcelamos nossos serviços em até 10x sem juros. Pagamentos à vista no débito ou PIX, ganham desconto de 30% em cima do valor total.</p>`);
+                    break;
+                default:
+                $(selectElement).closest(justificativa).html("");
+                    break;
             }
         }
 
